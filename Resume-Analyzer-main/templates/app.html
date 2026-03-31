@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Analyzer</title>
+
+    <style>
+      :root {
+        --primary: #064e3b;
+        --dark: #022c22;
+        --accent: #2563eb;
+        --bg1: #fef6e4;
+        --bg2: #ebd6a3;
+        --card: #ffffff;
+        --text: #374151;
+        --success: #16a34a;
+        --danger: #ef4444;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        /* background: linear-gradient(to bottom, var(--bg1), var(--bg2)); */
+        background-color: #f8edd0;
+        color: var(--text);
+      }
+
+      /* NAVBAR */
+      nav {
+        background: linear-gradient(to right, #064e3b, #022c22);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav h2 {
+        margin: 0;
+        color: white;
+        font-size: 20px;
+      }
+
+      nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-size: 16px;
+      }
+
+      nav a:hover {
+        color: #ebd6a3;
+      }
+
+      /* CONTAINER */
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        margin-top: 40px;
+        padding: 30px;
+        /* background: #fef6e4; */
+        background: linear-gradient(to bottom, #fdf2d9, #e3d0a1);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .outer {
+        background-color: #f8edd0;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        color: var(--primary);
+        font-size: 32px;
+      }
+
+      .description {
+        color: #666;
+      }
+
+      /* FORM */
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-weight: 600;
+      }
+
+      textarea {
+        width: 100%;
+        height: 140px;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+
+      textarea:focus {
+        border-color: var(--accent);
+        outline: none;
+      }
+
+      .file-upload-container {
+        border: 2px dashed #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background: #f9fafb;
+      }
+
+      input[type="file"] {
+        width: 100%;
+      }
+
+      /* BUTTON */
+      button {
+        width: 100%;
+        padding: 14px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      /* TABLE */
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      th {
+        background: var(--primary);
+        color: white;
+        padding: 12px;
+      }
+
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+      }
+
+      tr:hover {
+        background: #f9fafb;
+      }
+
+      .submit {
+        background-color: #065f46;
+        color: white;
+      }
+      .progress {
+        background: #e5e7eb;
+        width: 100%;
+        height: 10px;
+        border-radius: 6px;
+        margin-top: 5px;
+      }
+
+      .progress-bar {
+        height: 10px;
+        border-radius: 6px;
+      }
+
+      .progress-bar.skill {
+        background: #16a34a; /* green */
+      }
+
+      .progress-bar.ai {
+        background: #2563eb; /* blue */
+      }
+
+      /* PROGRESS BAR */
+      .progress {
+        background: #e5e7eb;
+        border-radius: 6px;
+        height: 10px;
+      }
+
+      .progress-bar {
+        background: var(--success);
+        height: 10px;
+        border-radius: 6px;
+      }
+
+      /* DOWNLOAD BUTTON */
+      .download-btn {
+        margin-top: 15px;
+        background: var(--success);
+      }
+
+      .download-btn:hover {
+        background: #15803d;
+      }
+
+      /* FEATURES */
+      .features {
+        margin-top: 40px;
+        padding: 20px;
+        background: #065f46;
+        border-radius: 10px;
+        color: white;
+      }
+
+      .features h3 {
+        color: white;
+      }
+
+      .features ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .features li {
+        margin-bottom: 8px;
+      }
+
+      .progress-bar {
+        background: #16a34a; /* GREEN for skill score */
+        height: 10px;
+        border-radius: 6px;
+      }
+
+      /* 🔵 AI Score Color (change this) */
+      .progress-bar.ai {
+        background: #16a34a; /* teal-green (recommended) */
+      }
+
+      /* CHAT ICON */
+      .chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #065f46;
+        color: white;
+        font-size: 22px;
+        padding: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 1000;
+      }
+
+      /* CHAT BOX */
+      .chatbot {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 260px;
+        background: #fef6e4;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        display: none; /* IMPORTANT */
+        z-index: 1000;
+      }
+
+      #chat-box {
+        height: 150px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+      }
+
+      .chatbot input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+
+      .chatbot button {
+        width: 100%;
+        background: #065f46;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav>
+      <h2>AI Resume Screening System</h2>
+
+      <div>
+        <a href="/analyzer">Start Analyzer</a>
+        <a href="/history" style="color: white; margin-left: 20px">History</a>
+        <a href="/about">About</a>
+      </div>
+    </nav>
+
+    <div class="outer">
+      <div class="container">
+        <div class="header">
+          <h1>Resume Analyzer</h1>
+          <p class="description">
+            Upload resumes and compare them with job descriptions using AI
+          </p>
+        </div>
+
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label style="color: var(--primary)">Job Description:</label>
+            <textarea name="resumeText" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label style="color: var(--primary)">Upload Resumes:</label>
+
+            <div class="file-upload-container">
+              <input type="file" name="resumeFile" multiple />
+            </div>
+          </div>
+
+          <button type="submit" class="submit">Analyze Resumes</button>
+        </form>
+
+        {% if results %}
+
+        <h3 style="color: #065f46">Top Matching Resumes</h3>
+
+        <table>
+          <tr>
+            <th>Rank</th>
+            <th>Candidate</th>
+            <th>Skill Score</th>
+            <th>AI Score</th>
+            <th>Skills</th>
+            <th>Missing</th>
+            <th>Reason</th>
+          </tr>
+          {% for r in results %}
+
+          <tr>
+            <td>{{ loop.index }}</td>
+
+            <td>{{ r.name }}</td>
+
+            <!-- Skill Score -->
+            <td>
+              {{ r.skill_score }}%
+              <div class="progress">
+                <div
+                  class="progress-bar skill"
+                  style="width: {{ r.skill_score }}%;"
+                ></div>
+              </div>
+            </td>
+
+            <!-- AI Score -->
+            <td>
+              {{ r.ai_score }}%
+              <div class="progress">
+                <div
+                  class="progress-bar ai"
+                  style="width: {{ r.ai_score }}%;"
+                ></div>
+              </div>
+            </td>
+
+            <td>{{ r.skills | join(", ") }}</td>
+
+            <td>{{ r.missing | join(", ") }}</td>
+
+            <td style="color: #444">{{ r.reason | join(", ") }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <div style="display: flex; gap: 15px; margin-top: 20px">
+          <a href="/download">
+            <button
+              style="background-color: #065f46; color: white; width: auto"
+            >
+              Download CSV
+            </button>
+          </a>
+
+          <a href="/visualize" target="_blank">
+            <button
+              style="background-color: #065f46; color: white; width: auto"
+            >
+              📊 Visualize
+            </button>
+          </a>
+        </div>
+        {% endif %}
+
+        <div class="features">
+          <h3>Features</h3>
+          <ul>
+            <li>✔ AI-based Resume Matching</li>
+            <li>✔ Skill Extraction</li>
+            <li>✔ Missing Skill Detection</li>
+            <li>✔ CSV Export</li>
+            <li>✔ Multi-format Support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHATBOT -->
+    <!-- CHAT ICON -->
+    <div class="chat-icon" onclick="toggleChat()">💬</div>
+
+    <!-- CHAT BOX -->
+    <div class="chatbot" id="chatbot">
+      <h3>Ask AI</h3>
+
+      <div id="chat-box"></div>
+
+      <input type="text" id="user-input" placeholder="Ask something..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+      function toggleChat() {
+        let chat = document.getElementById("chatbot");
+
+        if (chat.style.display === "none" || chat.style.display === "") {
+          chat.style.display = "block";
+        } else {
+          chat.style.display = "none";
+        }
+      }
+
+      function sendMessage() {
+        let input = document.getElementById("user-input").value;
+
+        fetch("/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: "message=" + input,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            let box = document.getElementById("chat-box");
+
+            box.innerHTML += "<p><b>You:</b> " + input + "</p>";
+            box.innerHTML += "<p><b>AI:</b> " + data.reply + "</p>";
+
+            document.getElementById("user-input").value = "";
+          });
+      }
+    </script>
+  </body>
+</html>

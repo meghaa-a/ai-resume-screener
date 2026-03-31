@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Resume History</title>
+
+    <style>
+      /* ================= NAVBAR ================= */
+      nav {
+        width: 100%;
+        background: linear-gradient(to right, #065f46, #022c22);
+        padding: 15px 40px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      nav h2 {
+        margin: 0;
+        color: white;
+        font-size: 20px;
+      }
+
+      nav a {
+        color: white;
+        margin-left: 15px;
+        text-decoration: none;
+        font-size: 16px;
+      }
+
+      nav a:hover {
+        color: #ebd6a3;
+      }
+      /* SPECIAL BUTTON */
+      .nav-btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+      }
+
+      .nav-btn:hover {
+        color: #ebd6a3;
+      }
+
+      body {
+        font-family: Arial;
+        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
+        height: 100vh;
+        padding: 30px;
+      }
+
+      h2 {
+        color: #065f46;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      th {
+        background: #065f46;
+        color: white;
+        padding: 12px;
+      }
+
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      tr:hover {
+        background: #f9f9f9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>📊 Resume Upload History</h2>
+
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Filename</th>
+        <th>Skill Score</th>
+        <th>AI Score</th>
+      </tr>
+
+      {% for row in data %}
+      <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}%</td>
+        <td>{{ row[3] }}%</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+  <head>
+    <title>About - AI Resume Screening System</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* ================= NAVBAR ================= */
+      nav {
+        background: linear-gradient(to right, #064e3b, #022c22);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav h2 {
+        margin: 0;
+        color: white;
+        font-size: 20px;
+      }
+
+      nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-size: 16px;
+      }
+
+      nav a:hover {
+        color: #ebd6a3;
+      }
+
+      /* ================= ABOUT SECTION ================= */
+      .about-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 100px 80px;
+        /* background: #fef6e4; */
+        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
+        color: black;
+        min-height: 80vh;
+      }
+
+      .about-text {
+        width: 50%;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .about-text h1 {
+        font-size: 42px;
+        color: #065f46;
+        margin-bottom: 25px;
+      }
+
+      .about-text p {
+        font-size: 17px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+        color: #444;
+      }
+
+      .about-text button {
+        padding: 14px 30px;
+        border: 2px solid black;
+        background: transparent;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+
+      .about-text button:hover {
+        background: #065f46;
+        color: white;
+      }
+
+      /* IMAGE */
+      .about-image {
+        width: 40%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .about-image img {
+        width: 520px;
+        /* clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); */
+        border-radius: 50%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ================= FEATURES ================= */
+      .features {
+        padding: 100px 20px;
+        text-align: center;
+        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
+        color: #065f46;
+      }
+
+      .features h2 {
+        font-size: 32px;
+        margin-bottom: 40px;
+      }
+
+      .features ul {
+        list-style: none;
+        padding: 0;
+        max-width: 500px;
+        margin: auto;
+      }
+
+      .features li {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #cbd5f5;
+      }
+
+      /* ANIMATION */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav>
+      <h2>AI Resume Screening System</h2>
+
+      <div>
+        <a href="/analyzer">Start Analyzer</a>
+        <a
+          class="hello"
+          href="/history"
+          target="_blank"
+          style="color: white; hover: color= #ebd6a3; margin-left: 20px"
+          >History</a
+        >
+        <a href="/about">About</a>
+      </div>
+    </nav>
+
+    <!-- ABOUT SECTION -->
+    <div class="about-section">
+      <!-- LEFT SIDE -->
+      <div class="about-text">
+        <h1>About Our System</h1>
+
+        <p>
+          The AI Resume Screening System is designed to simplify and automate
+          the hiring process. It uses Natural Language Processing (NLP) and
+          Machine Learning techniques to analyze resumes and match them with job
+          descriptions.
+        </p>
+
+        <p>
+          The system extracts important skills, calculates similarity scores,
+          ranks candidates, and highlights missing skills. It helps recruiters
+          save time and helps students understand how well their resume fits a
+          job.
+        </p>
+
+        <a href="/analyzer">
+          <button>Try Resume Analyzer</button>
+        </a>
+      </div>
+
+      <!-- RIGHT SIDE IMAGE -->
+      <div class="about-image">
+        <!-- 🔥 PUT YOUR IMAGE IN /static/about.jpg -->
+        <img src="/static/abt_img4.png" alt="AI Resume Image" />
+      </div>
+    </div>
+  </body>
+</html>

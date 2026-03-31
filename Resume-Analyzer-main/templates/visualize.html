@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial;
+        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
+        padding: 30px;
+      }
+
+      h2 {
+        color: #065f46;
+        text-align: center;
+      }
+
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>📊 Resume Ranking Dashboard</h2>
+
+    <div class="container">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+      const labels = [
+        {% for r in data %}
+          "{{ r.name }}",
+        {% endfor %}
+      ];
+
+      const skillScores = [
+        {% for r in data %}
+          {{ r.skill_score }},
+        {% endfor %}
+      ];
+
+      const aiScores = [
+        {% for r in data %}
+          {{ r.ai_score }},
+        {% endfor %}
+      ];
+
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Skill Score',
+              data: skillScores
+            },
+            {
+              label: 'AI Score',
+              data: aiScores
+            }
+          ]
+        }
+      });
+    </script>
+  </body>
+</html>
