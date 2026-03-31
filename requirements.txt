@@ -3,4 +3,5 @@ pandas
 numpy
 scikit-learn
 PyPDF2
+docx2txt
 gunicorn
