@@ -3,3 +3,7 @@ os
 PyPDF2
 docx2txt
 sklearn
+pandas
+numpy
+scikit-learn
+gunicorn
