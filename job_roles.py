@@ -3,6 +3,8 @@ def recommend_job(skills):
     if "machine learning" in skills or "nlp" in skills:
         return "Data Scientist"
 
+    elif "ml" in skills or "nlp" in skills:
+        return "Data Scientist"
     elif "python" in skills and "sql" in skills:
         return "Data Analyst"
 

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_file
+from flask import Flask, request, render_template, send_file,redirect
 import os
 import PyPDF2
 import docx2txt
@@ -14,12 +14,22 @@ def init_db():
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
 
+    # Existing table
     c.execute("""
     CREATE TABLE IF NOT EXISTS history (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         filename TEXT,
         skill_score REAL,
         ai_score REAL
+    )
+    """)
+
+    # NEW TABLE
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS jobs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        description TEXT
     )
     """)
 
@@ -97,7 +107,45 @@ def match_resumes(job_description, resumes):
 
 
 # ================== ROUTES ==================
+@app.route("/add_job", methods=["POST"])
+def add_job():
+    title = request.form.get("title").strip().lower()
+    description = request.form.get("description")
 
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    # 🔍 CHECK if job already exists
+    c.execute("SELECT * FROM jobs WHERE LOWER(title)=?", (title,))
+    existing = c.fetchone()
+
+    if existing:
+        conn.close()
+        return redirect("/dashboard")  # already exists → do nothing
+
+    # ✅ Insert only if not exists
+    c.execute(
+        "INSERT INTO jobs (title, description) VALUES (?, ?)",
+        (title, description)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/dashboard")
+@app.route("/dashboard")
+def dashboard():
+    import sqlite3
+
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM jobs")
+    jobs = c.fetchall()
+
+    conn.close()
+
+    return render_template("dashboard.html", jobs=jobs)
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -256,6 +304,18 @@ def download():
 
 # ================== RUN ================== 
 
+
+@app.route("/job/<int:job_id>")
+def view_job(job_id):
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM jobs WHERE id=?", (job_id,))
+    job = c.fetchone()
+
+    conn.close()
+
+    return render_template("job_detail.html", job=job)
 
 @app.route("/chat", methods=["POST"])
 def chat():

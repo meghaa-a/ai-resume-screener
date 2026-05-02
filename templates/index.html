@@ -6,140 +6,146 @@
     <style>
       body {
         margin: 0;
-        font-family: Arial, sans-serif;
-        color: white;
+        font-family: "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
       }
 
       /* ================= NAVBAR ================= */
       nav {
-        background: linear-gradient(to right, #064e3b, #022c22);
-        padding: 15px 30px;
+        background: #020617;
+        padding: 18px 50px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border-bottom: 1px solid #1f2937;
       }
+
       nav h2 {
         margin: 0;
-        color: white;
         font-size: 20px;
+        color: #22c55e;
+        font-weight: 600;
       }
 
       nav a {
-        color: white;
-        margin-left: 20px;
+        color: #cbd5f5;
+        margin-left: 25px;
         text-decoration: none;
-        font-size: 16px;
+        font-size: 15px;
+        transition: 0.3s;
       }
 
       nav a:hover {
-        color: #ebd6a3;
-      }
-      /* SPECIAL BUTTON */
-      .nav-btn {
-        padding: 8px 16px;
-        border-radius: 8px;
-      }
-
-      .nav-btn:hover {
-        color: #ebd6a3;
+        color: #22c55e;
       }
 
       /* ================= HERO ================= */
       .hero {
         height: 100vh;
-
-        /* background: url("/static/ai-bg.jpg") center/cover no-repeat; */
-
         display: flex;
-        justify-content: center;
         align-items: center;
-        text-align: center;
-
-        position: relative;
+        justify-content: center;
+        padding: 0 60px;
       }
 
-      /* DARK OVERLAY */
-      .hero::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to bottom, #fef6e4, #ecd292);
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 1;
-        animation: fadeIn 1s ease-in-out;
-      }
-
-      .hero h1 {
-        font-size: 60px;
-        margin-bottom: 20px;
-      }
-
-      .hero p {
-        font-size: 18px;
-        margin-bottom: 30px;
-      }
-      .about-container {
+      .container {
         display: flex;
-        align-items: center; /* vertical center */
-        justify-content: center; /* optional: center whole section */
-        gap: 50px; /* space between image & text */
-        height: 80vh; /* important for vertical centering */
-        padding: 20px;
-
-        position: relative; /* ADD THIS */
-        z-index: 1;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+        max-width: 1200px;
+        width: 100%;
       }
 
-      .about-image img {
-        width: 450px;
-        border-radius: 50%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      /* TEXT */
+      .text-section {
+        max-width: 600px;
       }
 
-      .about-text {
-        max-width: 500px;
-        font-size: 20px;
-        color: #333;
+      .text-section h1 {
+        font-size: 56px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #f9fafb;
       }
 
-      /* BUTTON */
-      .hero button {
-        padding: 15px 30px;
+      .text-section span {
+        color: #22c55e;
+      }
+
+      .text-section p {
         font-size: 18px;
-        background: #2563eb;
-        color: white;
+        margin-top: 20px;
+        color: #94a3b8;
+        line-height: 1.6;
+      }
+
+      /* BUTTONS */
+      .buttons {
+        margin-top: 30px;
+      }
+
+      .btn-primary {
+        padding: 14px 28px;
+        background: #22c55e;
+        color: black;
         border: none;
-        border-radius: 10px;
+        border-radius: 8px;
+        font-weight: 600;
         cursor: pointer;
         transition: 0.3s;
       }
 
-      .hero button:hover {
-        background: #1e40af;
+      .btn-primary:hover {
+        background: #16a34a;
       }
 
-      .quote {
-        color: #444;
+      .btn-secondary {
+        padding: 14px 28px;
+        margin-left: 10px;
+        background: transparent;
+        text-decoration: none;
+        color: white;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
       }
-      .about-image img {
-        width: 450px;
-        /* clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); */
-        border-radius: 50%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+      .btn-secondary:hover {
+        border-color: #22c55e;
+        color: #22c55e;
       }
-      /* ================= ANIMATION ================= */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(30px);
+
+      /* IMAGE */
+      .image-section img {
+        width: 520px;
+        border-radius: 25px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        transition: 0.3s;
+      }
+
+      .image-section img:hover {
+        transform: scale(1.05);
+      }
+
+      /* FEATURES */
+      .features {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #64748b;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .container {
+          flex-direction: column;
+          text-align: center;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+
+        .image-section img {
+          width: 300px;
         }
       }
     </style>
@@ -148,36 +154,55 @@
   <body>
     <!-- NAVBAR -->
     <nav>
-      <h2>AI Resume Screening System</h2>
+      <h2>AI Resume Screening</h2>
 
       <div>
-        <a href="/analyzer" class="nav-btn">Start Analyzer</a>
-        <a
-          class="hello"
-          href="http://localhost:5000/history"
-          target="_blank"
-          style="color: white; margin-left: 20px"
-        >
-          History
-        </a>
+        <a href="/analyzer">Start Analyzer</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/visualize" target="_blank">Analytics</a>
+        <a href="/history" target="_blank">History</a>
         <a href="/about">About</a>
       </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <div class="hero">
-      <div class="about-container">
-        <div class="about-image">
-          <img src="/static/hero_img3.png" alt="Resume Image" />
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <!-- TEXT -->
+        <div class="text-section">
+          <h1>Hire <span>Talent</span>, Not Just Resumes</h1>
+
+          <p>
+            Discover hidden potential with AI-powered resume analysis. Make
+            smarter hiring decisions faster and find the right candidates beyond
+            just keywords.
+          </p>
+
+          <div class="buttons">
+            <button
+              class="btn-primary"
+              onclick="window.location.href = '/analyzer'"
+            >
+              Start Analyzer
+            </button>
+
+            <a href="/about" class="btn-secondary">Learn More</a>
+          </div>
+
+          <div class="features">
+            ✔ AI Matching &nbsp;&nbsp; ✔ Skill Analysis &nbsp;&nbsp; ✔ Smart
+            Hiring
+          </div>
         </div>
 
-        <div class="about-text">
-          <p>
-            “Hire talent, not just resumes — let AI find the potential behind
-            the paper.”
-          </p>
+        <!-- IMAGE -->
+        <div class="image-section">
+          <img
+            src="{{ url_for('static', filename='r3.png') }}"
+            alt="AI Resume"
+          />
         </div>
       </div>
-    </div>
+    </section>
   </body>
 </html>

@@ -1,4 +1,3 @@
 Rank,Candidate,Skill Score,AI Score,Skills Found,Missing Skills,Reason
-1,ai sample resume1.docx,100.0,67.67,"python, sql, machine learning, ai, data analysis, nlp, pandas, numpy",,
-2,ai sample resume2.docx,42.86,22.08,"python, sql, ai, data analysis","machine learning, pandas, nlp, numpy","Missing skills: machine learning, pandas, nlp, numpy"
-3,ai sample resume3.docx,14.29,4.32,"sql, ai, ml","python, pandas, nlp, machine learning, numpy, data analysis","Missing skills: python, pandas, nlp, machine learning, numpy, data analysis"
+1,ai sample resume2.docx,50.0,6.67,"python, sql, ai, data analysis",ml,Missing skills: ml
+2,ai sample resume1.docx,50.0,4.99,"python, sql, machine learning, ai, data analysis, nlp, pandas, numpy",ml,Missing skills: ml

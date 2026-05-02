@@ -4,102 +4,132 @@
     <title>Resume History</title>
 
     <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+      }
+
       /* ================= NAVBAR ================= */
       nav {
-        width: 100%;
-        background: linear-gradient(to right, #065f46, #022c22);
+        width: 94%;
+        background: #020617;
         padding: 15px 40px;
-
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border-bottom: 1px solid #1f2937;
+      }
 
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-      }
       nav h2 {
         margin: 0;
-        color: white;
+        color: #22c55e;
         font-size: 20px;
+        font-weight: 600;
       }
 
       nav a {
-        color: white;
-        margin-left: 15px;
+        color: #cbd5f5;
+        margin-left: 20px;
         text-decoration: none;
-        font-size: 16px;
+        font-size: 15px;
+        transition: 0.3s;
       }
 
       nav a:hover {
-        color: #ebd6a3;
-      }
-      /* SPECIAL BUTTON */
-      .nav-btn {
-        padding: 8px 16px;
-        border-radius: 8px;
+        color: #22c55e;
       }
 
-      .nav-btn:hover {
-        color: #ebd6a3;
-      }
-
-      body {
-        font-family: Arial;
-        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
-        height: 100vh;
-        padding: 30px;
+      /* ================= PAGE ================= */
+      .container {
+        padding: 40px;
       }
 
       h2 {
-        color: #065f46;
+        color: #22c55e;
+        margin-bottom: 20px;
       }
 
+      /* ================= TABLE ================= */
       table {
         width: 100%;
         border-collapse: collapse;
-        background: white;
-        border-radius: 10px;
+        background: #020617;
+        border-radius: 12px;
         overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       }
 
       th {
-        background: #065f46;
-        color: white;
-        padding: 12px;
+        background: #22c55e;
+        color: black;
+        padding: 14px;
+        font-weight: 600;
+        text-align: left;
       }
 
       td {
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
+        padding: 12px;
+        border-bottom: 1px solid #1f2937;
+        color: #e2e8f0;
       }
 
       tr:hover {
-        background: #f9f9f9;
+        background: #1e293b;
+      }
+
+      /* STRIPED EFFECT */
+      tr:nth-child(even) {
+        background: #020617;
+      }
+
+      tr:nth-child(odd) {
+        background: #020617;
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 700px) {
+        table {
+          font-size: 14px;
+        }
       }
     </style>
   </head>
 
   <body>
-    <h2>📊 Resume Upload History</h2>
+    <!-- NAVBAR -->
+    <nav>
+      <h2>AI Resume Screening</h2>
 
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Filename</th>
-        <th>Skill Score</th>
-        <th>AI Score</th>
-      </tr>
+      <div>
+        <a href="/analyzer">Start Analyzer</a>
+        <a href="/history">History</a>
+        <a href="/about">About</a>
+      </div>
+    </nav>
 
-      {% for row in data %}
-      <tr>
-        <td>{{ row[0] }}</td>
-        <td>{{ row[1] }}</td>
-        <td>{{ row[2] }}%</td>
-        <td>{{ row[3] }}%</td>
-      </tr>
-      {% endfor %}
-    </table>
+    <!-- CONTENT -->
+    <div class="container">
+      <h2>📊 Resume Upload History</h2>
+
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Filename</th>
+          <th>Skill Score</th>
+          <th>AI Score</th>
+        </tr>
+
+        {% for row in data %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}%</td>
+          <td>{{ row[3] }}%</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
   </body>
 </html>

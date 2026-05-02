@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Recruiter Dashboard</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: white;
+      }
+
+      nav {
+        background: #020617;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #1f2937;
+      }
+
+      nav h2 {
+        color: #22c55e;
+        margin: 0;
+      }
+
+      nav a {
+        color: #cbd5f5;
+        margin-left: 20px;
+        text-decoration: none;
+      }
+
+      .container {
+        padding: 40px;
+        max-width: 900px;
+        margin: auto;
+      }
+
+      .card {
+        background: #020617;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #1f2937;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #0f172a;
+        border: 1px solid #1f2937;
+        color: white;
+      }
+
+      button {
+        background: #22c55e;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+
+      .job-card {
+        padding: 15px;
+        border-bottom: 1px solid #1f2937;
+      }
+
+      .job-card a {
+        color: #22c55e;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <h2>Recruiter Dashboard</h2>
+      <div>
+        <a href="/analyzer">Analyzer</a>
+        <a href="/history">History</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- ADD JOB -->
+      <div class="card">
+        <h3>Create Job Role</h3>
+
+        <form action="/add_job" method="POST">
+          <input type="text" name="title" placeholder="Job Title" required />
+          <textarea
+            name="description"
+            placeholder="Job Description"
+            required
+          ></textarea>
+
+          <button type="submit">Add Job</button>
+        </form>
+      </div>
+
+      <!-- JOB LIST -->
+      <div class="card">
+        <h3>All Job Roles</h3>
+
+        {% for job in jobs %}
+        <div class="job-card">
+          <a href="/job/{{ job[0] }}">
+            <strong>{{ job[1] }}</strong>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

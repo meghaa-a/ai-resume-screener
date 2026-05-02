@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Job Details</title>
+
+    <style>
+      body {
+        background: #0f172a;
+        color: white;
+        font-family: "Segoe UI";
+        padding: 40px;
+      }
+
+      .card {
+        background: #020617;
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid #1f2937;
+      }
+
+      h1 {
+        color: #22c55e;
+      }
+
+      p {
+        color: #cbd5f5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card">
+      <h1>{{ job[1] }}</h1>
+
+      <p>{{ job[2] }}</p>
+
+      <a href="/analyzer">
+        <button style="margin-top: 20px">Analyze Candidates</button>
+      </a>
+    </div>
+  </body>
+</html>

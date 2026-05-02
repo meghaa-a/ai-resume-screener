@@ -7,29 +7,86 @@
     <style>
       body {
         margin: 0;
-        font-family: Arial;
-        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
-        padding: 30px;
+        font-family: "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+      }
+
+      /* NAVBAR */
+      nav {
+        background: #020617;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #1f2937;
+      }
+
+      nav h2 {
+        color: #22c55e;
+        margin: 0;
+      }
+
+      nav a {
+        color: #cbd5f5;
+        margin-left: 20px;
+        text-decoration: none;
+      }
+
+      nav a:hover {
+        color: #22c55e;
+      }
+
+      /* PAGE */
+      .wrapper {
+        padding: 40px;
+        max-width: 1000px;
+        margin: auto;
       }
 
       h2 {
-        color: #065f46;
         text-align: center;
+        color: #22c55e;
+        margin-bottom: 30px;
       }
 
+      /* CARD */
       .container {
-        background: white;
-        padding: 20px;
+        background: #020617;
+        padding: 30px;
         border-radius: 12px;
+        border: 1px solid #1f2937;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 600px) {
+        .wrapper {
+          padding: 20px;
+        }
       }
     </style>
   </head>
 
   <body>
-    <h2>📊 Resume Ranking Dashboard</h2>
+    <!-- NAVBAR -->
+    <nav>
+      <h2>AI Resume Screening</h2>
 
-    <div class="container">
-      <canvas id="myChart"></canvas>
+      <div>
+        <a href="/analyzer">Analyzer</a>
+        <a href="/history">History</a>
+        <a href="/about">About</a>
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="wrapper">
+      <h2>📊 Resume Ranking Dashboard</h2>
+
+      <div class="container">
+        <canvas id="myChart"></canvas>
+      </div>
     </div>
 
     <script>
@@ -60,13 +117,42 @@
           datasets: [
             {
               label: 'Skill Score',
-              data: skillScores
+              data: skillScores,
+              backgroundColor: '#22c55e'
             },
             {
               label: 'AI Score',
-              data: aiScores
+              data: aiScores,
+              backgroundColor: '#3b82f6'
             }
           ]
+        },
+        options: {
+          plugins: {
+            legend: {
+              labels: {
+                color: '#e5e7eb'
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: '#cbd5f5'
+              },
+              grid: {
+                color: '#1f2937'
+              }
+            },
+            y: {
+              ticks: {
+                color: '#cbd5f5'
+              },
+              grid: {
+                color: '#1f2937'
+              }
+            }
+          }
         }
       });
     </script>

@@ -6,33 +6,38 @@
     <style>
       body {
         margin: 0;
-        font-family: Arial, sans-serif;
+        font-family: "Segoe UI", sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
       }
 
       /* ================= NAVBAR ================= */
       nav {
-        background: linear-gradient(to right, #064e3b, #022c22);
-        padding: 15px 30px;
+        background: #020617;
+        padding: 15px 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border-bottom: 1px solid #1f2937;
       }
 
       nav h2 {
         margin: 0;
-        color: white;
+        color: #22c55e;
         font-size: 20px;
+        font-weight: 600;
       }
 
       nav a {
-        color: white;
+        color: #cbd5f5;
         margin-left: 20px;
         text-decoration: none;
-        font-size: 16px;
+        font-size: 15px;
+        transition: 0.3s;
       }
 
       nav a:hover {
-        color: #ebd6a3;
+        color: #22c55e;
       }
 
       /* ================= ABOUT SECTION ================= */
@@ -40,11 +45,9 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 100px 80px;
-        /* background: #fef6e4; */
-        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
-        color: black;
+        padding: 80px 60px;
         min-height: 80vh;
+        gap: 50px;
       }
 
       .about-text {
@@ -54,69 +57,72 @@
 
       .about-text h1 {
         font-size: 42px;
-        color: #065f46;
-        margin-bottom: 25px;
+        color: white;
+        margin-bottom: 20px;
       }
 
       .about-text p {
         font-size: 17px;
-        line-height: 1.8;
-        margin-bottom: 20px;
-        color: #444;
+        line-height: 1.7;
+        color: #94a3b8;
+        margin-bottom: 18px;
       }
 
       .about-text button {
-        padding: 14px 30px;
-        border: 2px solid black;
-        background: transparent;
-        border-radius: 10px;
+        padding: 14px 28px;
+        background: #22c55e;
+        color: black;
+        border: none;
+        border-radius: 8px;
         cursor: pointer;
-        font-size: 16px;
+        font-weight: 600;
         transition: 0.3s;
       }
 
       .about-text button:hover {
-        background: #065f46;
-        color: white;
+        background: #16a34a;
       }
 
       /* IMAGE */
       .about-image {
-        width: 40%;
+        width: 45%;
         display: flex;
         justify-content: center;
       }
 
       .about-image img {
-        width: 520px;
-        /* clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); */
-        border-radius: 50%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        width: 450px;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        transition: 0.3s;
+      }
+
+      .about-image img:hover {
+        transform: scale(1.05);
       }
 
       /* ================= FEATURES ================= */
       .features {
-        padding: 100px 20px;
+        padding: 60px 20px;
         text-align: center;
-        background: linear-gradient(to bottom, #fef6e4, #ebd6a3);
-        color: #065f46;
       }
 
       .features h2 {
         font-size: 32px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
+        color: #22c55e;
       }
 
       .features ul {
         list-style: none;
         padding: 0;
-        max-width: 500px;
+        max-width: 600px;
         margin: auto;
       }
 
       .features li {
         font-size: 18px;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         color: #cbd5f5;
       }
 
@@ -131,45 +137,59 @@
           transform: translateX(0);
         }
       }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        .about-section {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .about-text,
+        .about-image {
+          width: 100%;
+        }
+
+        .about-image img {
+          width: 300px;
+        }
+      }
     </style>
   </head>
 
   <body>
     <!-- NAVBAR -->
     <nav>
-      <h2>AI Resume Screening System</h2>
+      <h2>AI Resume Screening</h2>
 
       <div>
         <a href="/analyzer">Start Analyzer</a>
-        <a
-          class="hello"
-          href="/history"
-          target="_blank"
-          style="color: white; hover: color= #ebd6a3; margin-left: 20px"
-          >History</a
-        >
+        <a href="/history">History</a>
         <a href="/about">About</a>
       </div>
     </nav>
 
     <!-- ABOUT SECTION -->
     <div class="about-section">
-      <!-- LEFT SIDE -->
+      <!-- TEXT -->
       <div class="about-text">
         <h1>About Our System</h1>
 
         <p>
-          The AI Resume Screening System is designed to simplify and automate
-          the hiring process. It uses Natural Language Processing (NLP) and
-          Machine Learning techniques to analyze resumes and match them with job
-          descriptions.
+          The AI Resume Screening System simplifies and automates the hiring
+          process using advanced Natural Language Processing (NLP) and Machine
+          Learning techniques.
         </p>
 
         <p>
-          The system extracts important skills, calculates similarity scores,
-          ranks candidates, and highlights missing skills. It helps recruiters
-          save time and helps students understand how well their resume fits a
-          job.
+          It intelligently analyzes resumes, extracts key skills, calculates
+          similarity scores, ranks candidates, and highlights missing skills —
+          helping recruiters make faster and smarter decisions.
+        </p>
+
+        <p>
+          Whether you're a recruiter or a job seeker, this system helps you
+          understand candidate potential beyond just resumes.
         </p>
 
         <a href="/analyzer">
@@ -177,11 +197,23 @@
         </a>
       </div>
 
-      <!-- RIGHT SIDE IMAGE -->
+      <!-- IMAGE -->
       <div class="about-image">
-        <!-- 🔥 PUT YOUR IMAGE IN /static/about.jpg -->
         <img src="/static/abt_img4.png" alt="AI Resume Image" />
       </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features">
+      <h2>Key Features</h2>
+
+      <ul>
+        <li>✔ AI-based Resume Matching</li>
+        <li>✔ Skill Extraction</li>
+        <li>✔ Missing Skill Detection</li>
+        <li>✔ Candidate Ranking System</li>
+        <li>✔ Fast & Accurate Hiring Insights</li>
+      </ul>
     </div>
   </body>
 </html>
