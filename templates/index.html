@@ -129,6 +129,22 @@
       .image-section img:hover {
         transform: scale(1.05);
       }
+      .light-theme {
+        background: white;
+        color: black;
+      }
+
+      .light-theme .card {
+        background: #f5f5f5;
+      }
+
+      .light-theme nav {
+        background: white;
+      }
+
+      .light-theme a {
+        color: black;
+      }
 
       /* FEATURES */
       .features {
@@ -157,11 +173,12 @@
       <h2>AI Resume Screening</h2>
 
       <div>
-        <a href="/analyzer">Start Analyzer</a>
+        <!-- <a href="/analyzer">Start Analyzer</a> -->
         <a href="/dashboard">Dashboard</a>
-        <a href="/visualize" target="_blank">Analytics</a>
-        <a href="/history" target="_blank">History</a>
+        <!-- <a href="/visualize" target="_blank">Analytics</a> -->
+        <!-- <a href="/history" target="_blank">History</a> -->
         <a href="/about">About</a>
+        <button id="theme-toggle">🌙</button>
       </div>
     </nav>
 
@@ -179,12 +196,12 @@
           </p>
 
           <div class="buttons">
-            <button
+            <!-- <button
               class="btn-primary"
               onclick="window.location.href = '/analyzer'"
             >
               Start Analyzer
-            </button>
+            </button> -->
 
             <a href="/about" class="btn-secondary">Learn More</a>
           </div>
@@ -204,5 +221,10 @@
         </div>
       </div>
     </section>
+    <script>
+      function changeTheme() {
+        document.body.classList.toggle("light-theme");
+      }
+    </script>
   </body>
 </html>

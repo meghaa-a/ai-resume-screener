@@ -38,7 +38,11 @@ def init_db():
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"pdf", "docx", "txt"}
 
+from flask import Flask, render_template, request, session, redirect, url_for
+
 app = Flask(__name__)
+
+app.secret_key = "your_secret_key"
 latest_results = []
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
@@ -161,17 +165,32 @@ def analyzer():
     return render_template("app.html")
 
 
-@app.route("/upload", methods=["POST"])
+@app.route("/upload", methods=["GET", "POST"])
 def upload():
 
     global latest_results
+    if request.method == "GET":
+
+        results = session.pop("results", None)
+        message = session.pop("message", None)
+        job_desc = session.pop("job_desc", "")
+
+        return render_template(
+            "app.html",
+            results=results,
+            message=message,
+            job_desc=job_desc
+        )
 
     jd = request.form.get("resumeText", "")
     resume_files = request.files.getlist("resumeFile")
 
     if not jd and not resume_files:
-        return render_template("app.html", message="Upload resumes or enter job description")
-
+        return render_template(
+        "app.html",
+        message="Upload resumes or enter job description",
+        job_desc=request.form.get("resumeText", "")
+    )
     jd = clean_text(jd)
 
     resumes = []
@@ -190,7 +209,11 @@ def upload():
             filenames.append(file.filename)
 
     if not resumes:
-        return render_template("app.html", message="No valid resumes uploaded")
+        return render_template(
+        "app.html",
+        message="No valid resumes uploaded",
+        job_desc=request.form.get("resumeText", "")
+    )
 
     ranked = match_resumes(jd, resumes)
 
@@ -248,11 +271,11 @@ def upload():
 
     latest_results = top_results
 
-    return render_template(
-        "app.html",
-        results=top_results,
-        message="Top Matching Resumes"
-    )
+    session["results"] = top_results
+    session["message"] = "Top Matching Resumes"
+    session["job_desc"] = request.form.get("resumeText", "")
+
+    return redirect(url_for("upload"))
 @app.route("/history")
 def history():
     conn = sqlite3.connect("database.db")
@@ -317,33 +340,112 @@ def view_job(job_id):
 
     return render_template("job_detail.html", job=job)
 
+
+@app.route("/delete_job/<int:job_id>")
+def delete_job(job_id):
+
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    c.execute("DELETE FROM jobs WHERE id=?", (job_id,))
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/dashboard")
+
+@app.route("/edit_job/<int:job_id>", methods=["GET", "POST"])
+def edit_job(job_id):
+
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+
+    if request.method == "POST":
+
+        title = request.form["title"]
+        description = request.form["description"]
+
+        c.execute(
+            """
+            UPDATE jobs
+            SET title=?, description=?
+            WHERE id=?
+            """,
+            (title, description, job_id)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/dashboard")
+
+    c.execute("SELECT * FROM jobs WHERE id=?", (job_id,))
+    job = c.fetchone()
+
+    conn.close()
+
+    return render_template("edit_job.html", job=job)
+
 @app.route("/chat", methods=["POST"])
 def chat():
+
     user_msg = request.form.get("message", "").lower()
 
-    if "best candidate" in user_msg:
-        reply = "The top ranked candidate has highest skill match and AI score."
+    if "hello" in user_msg or "hi" in user_msg:
+        reply = "Hello! I am your Resume Screening Assistant. How can I help you?"
 
-    elif "missing skills" in user_msg:
-        reply = "Missing skills are calculated based on job description vs resume."
+    elif "skill" in user_msg:
+        reply = "Skills represent the technologies and competencies identified in the resume and matched with the job description."
+
+    elif "ai score" in user_msg:
+        reply = "AI Score is generated using TF-IDF and Cosine Similarity to measure resume relevance."
+
+    elif "final score" in user_msg or "score" in user_msg:
+        reply = "The final score is calculated using both AI matching and skill matching scores to rank candidates."
+
+    elif "missing skills" in user_msg or "missing" in user_msg:
+        reply = "Missing skills are the skills present in the job description but not found in the uploaded resume."
+
+    elif "best candidate" in user_msg or "top candidate" in user_msg:
+        if latest_results:
+            reply = f"The top candidate is {latest_results[0]['name']}."
+        else:
+            reply = "No resumes have been analyzed yet."
 
     elif "low score" in user_msg:
-        reply = "Low score means fewer matching skills or less relevant content."
+        reply = "Low score means the resume contains fewer matching skills or less relevant content."
 
     elif "recommend job" in user_msg:
-        reply = "Job role is suggested based on candidate skills."
+        reply = "Job roles can be recommended based on the candidate's extracted skills."
 
     elif "how scoring works" in user_msg:
-        reply = "Score is calculated using skill match and AI-based similarity."
+        reply = "The score is calculated using Skill Match Score and AI-based similarity score."
 
-    elif "top candidate" in user_msg:
-        reply = latest_results[0]["name"]
+    elif "what is tf-idf and cosine similarity" in user_msg:
+        reply = (
+        "TF-IDF converts the job description and resumes into numerical vectors by assigning "
+        "weights to important words. Cosine Similarity then compares these vectors to calculate "
+        "a matching score. Higher similarity indicates that the resume is more relevant to the job description."
+    )
+
+    elif "tf-idf" in user_msg or "tfidf" in user_msg:
+        reply = (
+        "TF-IDF stands for Term Frequency-Inverse Document Frequency..."
+    )
+
+    elif "cosine similarity" in user_msg:
+        reply = (
+        "Cosine Similarity is a mathematical measure..."
+    )
+    elif "project" in user_msg:
+        reply = "This AI Resume Screening System automates resume analysis and candidate ranking using NLP techniques."
 
     else:
-        reply = "Ask about candidate ranking, missing skills, or scoring."
+        reply = "Sorry, Please try something else."
 
-    return {"reply": reply}  
 
+    from flask import jsonify
+    return jsonify({"reply": reply})
 
 if __name__ == "__main__":
 

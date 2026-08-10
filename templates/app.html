@@ -164,7 +164,7 @@
       }
 
       .progress-bar.ai {
-        background: #3b82f6;
+        background: #22c55e;
         height: 10px;
         border-radius: 6px;
       }
@@ -265,7 +265,10 @@
       <form action="/upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label>Job Description</label>
-          <textarea name="resumeText" required></textarea>
+          <!-- <textarea name="resumeText" required></textarea> -->
+          <textarea name="resumeText" rows="10">
+{{ job_desc|default('') }}</textarea
+          >
         </div>
 
         <div class="form-group">

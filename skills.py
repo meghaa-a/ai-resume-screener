@@ -13,11 +13,11 @@ skills = [
 ]
 
 def extract_skills(text):
-
     found = []
+    text = text.lower()      # Convert once
 
     for skill in skills:
-        if skill in text.lower():
+        if skill.lower() in text:
             found.append(skill)
 
     return found

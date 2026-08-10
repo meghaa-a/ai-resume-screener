@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Edit Job</title>
+
+    <style>
+      body {
+        background-color: #000814;
+        color: white;
+        font-family: Arial;
+      }
+
+      .container {
+        width: 60%;
+        margin: 50px auto;
+        background: #001233;
+        padding: 40px;
+        border-radius: 20px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 15px;
+        margin-top: 15px;
+        background: #0a1931;
+        color: white;
+        border: 1px solid #333;
+        border-radius: 10px;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        background: #2ecc71;
+        color: black;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Edit Job</h1>
+
+      <form method="POST">
+        <input type="text" name="title" value="{{ job[1] }}" required />
+
+        <textarea name="description" rows="6" required>{{ job[2] }}</textarea>
+
+        <button type="submit">Update Job</button>
+      </form>
+    </div>
+  </body>
+</html>
