@@ -8,8 +8,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import csv
 import sqlite3
+from dotenv import load_dotenv
+from google import genai
 
-
+load_dotenv()
 def init_db():
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
@@ -41,6 +43,11 @@ ALLOWED_EXTENSIONS = {"pdf", "docx", "txt"}
 from flask import Flask, render_template, request, session, redirect, url_for
 
 app = Flask(__name__)
+load_dotenv()
+
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
 
 app.secret_key = "your_secret_key"
 latest_results = []
@@ -389,63 +396,51 @@ def edit_job(job_id):
 @app.route("/chat", methods=["POST"])
 def chat():
 
-    user_msg = request.form.get("message", "").lower()
+    user_msg = request.form.get("message", "").strip()
 
-    if "hello" in user_msg or "hi" in user_msg:
-        reply = "Hello! I am your Resume Screening Assistant. How can I help you?"
+    if not user_msg:
+        return {"reply": "Please enter a question."}
 
-    elif "skill" in user_msg:
-        reply = "Skills represent the technologies and competencies identified in the resume and matched with the job description."
+    prompt = f"""
+You are the AI assistant for an AI Resume Screening System.
 
-    elif "ai score" in user_msg:
-        reply = "AI Score is generated using TF-IDF and Cosine Similarity to measure resume relevance."
+Answer questions related to this project in simple and clear language.
 
-    elif "final score" in user_msg or "score" in user_msg:
-        reply = "The final score is calculated using both AI matching and skill matching scores to rank candidates."
+The project uses:
+- Python and Flask
+- NLP
+- TF-IDF
+- Cosine Similarity
+- Skill extraction
+- Resume ranking
+- Skill score
+- AI score
+- Missing skill detection
+- CSV download
+- Data visualization
+- SQLite history
 
-    elif "missing skills" in user_msg or "missing" in user_msg:
-        reply = "Missing skills are the skills present in the job description but not found in the uploaded resume."
+Explain technical concepts in an easy way suitable for a student or recruiter.
 
-    elif "best candidate" in user_msg or "top candidate" in user_msg:
-        if latest_results:
-            reply = f"The top candidate is {latest_results[0]['name']}."
-        else:
-            reply = "No resumes have been analyzed yet."
+User question:
+{user_msg}
+"""
 
-    elif "low score" in user_msg:
-        reply = "Low score means the resume contains fewer matching skills or less relevant content."
+    try:
 
-    elif "recommend job" in user_msg:
-        reply = "Job roles can be recommended based on the candidate's extracted skills."
+        response = client.models.generate_content(
+            model="models/gemini-3.5-flash-lite",
+            contents=prompt
+        )
 
-    elif "how scoring works" in user_msg:
-        reply = "The score is calculated using Skill Match Score and AI-based similarity score."
+        return {"reply": response.text}
 
-    elif "what is tf-idf and cosine similarity" in user_msg:
-        reply = (
-        "TF-IDF converts the job description and resumes into numerical vectors by assigning "
-        "weights to important words. Cosine Similarity then compares these vectors to calculate "
-        "a matching score. Higher similarity indicates that the resume is more relevant to the job description."
-    )
+    except Exception as e:
+        print("GEMINI ERROR:", repr(e))
 
-    elif "tf-idf" in user_msg or "tfidf" in user_msg:
-        reply = (
-        "TF-IDF stands for Term Frequency-Inverse Document Frequency..."
-    )
-
-    elif "cosine similarity" in user_msg:
-        reply = (
-        "Cosine Similarity is a mathematical measure..."
-    )
-    elif "project" in user_msg:
-        reply = "This AI Resume Screening System automates resume analysis and candidate ranking using NLP techniques."
-
-    else:
-        reply = "Sorry, Please try something else."
-
-
-    from flask import jsonify
-    return jsonify({"reply": reply})
+    return {
+        "reply": "Gemini API error. Check the VS Code terminal."
+    }
 
 if __name__ == "__main__":
 
